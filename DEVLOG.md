@@ -46,4 +46,8 @@ This info is not private or secret
 
 The popup-ui is just an interface to see/modify the filter
 
+4:33 PM
 
+Struggling with the messaging still lol
+
+Also distracted in general, not sure if I'm about to be lifted from poverty or not
