@@ -12,15 +12,6 @@ const createFilterItem = (name) => (
   </div>`
 );
 
-const sendMessageToDomFilter = (msg) => {
-  chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-    chrome.tabs.sendMessage(tabs[0].id, msg, (response) => {
-      // not doing anything with response yet
-      console.log(response);
-    });  
-  });
-}
-
 const removeFilter = (filter) => {
   sendMessageToBg({
     type: 'update-filter',
@@ -56,10 +47,17 @@ chrome.runtime.onMessage.addListener((request, sender, callback) => {
   }
 });
 
+const sendMessageToBg = (msg) => {
+  chrome.runtime.sendMessage({
+    message: msg
+  });
+}
+
 document.addEventListener('click', (e) => {
   if (e.target.getAttribute('id') === 'add-filter-btn') {
     const filter = filterInput.value;
     // sendMessageToBg('yo');
+    getFilters();
   }
 
   if (Array.from(e.target.classList).includes('container__body-row-item-remove-btn')) {

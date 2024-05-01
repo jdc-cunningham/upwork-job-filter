@@ -70,42 +70,18 @@ const sendMessageToLogic = (msg) => {
   chrome.runtime.sendMessage(msg);
 }
 
-chrome.runtime.onMessage.addListener((request, sender, callback) => {
-  const { message } = request;
-
-  console.log(message);
-
-  if (message?.getFilters) {
+const checkMsg = (msg) => {
+  if (msg?.getFilters) {
     sendMessageToLogic(getFilters());
   }
-
-  if (message?.type === 'update-filter') {
-    if (message?.action === 'add') {
-      addFilter(msg.filter)
-    }
-
-    if (message?.action === 'remove') {
-      removeFilter(msg.filter);
-    }
-  }
-
-  console.log('bg', request);
-
-  callback('bg ack');
-});
-
-
-let filters = [];
+};
 
 chrome.runtime.onMessage.addListener((request, sender, callback) => {
   const msg = request;
 
-  checkMsg(msg);
-  callback('ui ack');
-});
+  console.log('dom', msg);
 
-const checkMsg = (msg) => {
-  if (msg?.filterList) {
-    filters = filterList;
-  }
-};
+  checkMsg(msg);
+
+  callback('dom ack');
+});

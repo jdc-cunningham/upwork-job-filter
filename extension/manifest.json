@@ -12,12 +12,16 @@
     "default_icon": "icon16.png",
     "default_popup": "./popup-ui/index.html"
   },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
   "content_scripts": [
     {
       "matches": ["https://www.upwork.com/nx/find-work/"],
       "run_at": "document_start",
       "js": ["dom-filter.js"],
-      "css": ["styles.css"]
+      "css": ["dom-styles.css"]
     }
   ]
 }
