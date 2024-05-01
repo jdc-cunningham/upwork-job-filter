@@ -32,6 +32,7 @@ body * {
 
 .container__body {
   min-height: 200px;
+  max-height: 200px;
   width: 100%;
   border: 1px solid #282828;
   margin: 0.5rem 0;
