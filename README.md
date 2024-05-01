@@ -8,7 +8,7 @@ Effects:
 
 - hides announcements banner
 - block jobs by text matching
-- (not implemented) auto-load more jobs and block to max count with delay
+- ~~auto-load more jobs and block to max count with delay~~
 
 ### Disclaimer
 
