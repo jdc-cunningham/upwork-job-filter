@@ -62,6 +62,7 @@ body * {
 .container__body-row-item button img {
   width: 1rem;
   height: 1rem;
+  pointer-events: none;
 }
 
 .container__footer input {

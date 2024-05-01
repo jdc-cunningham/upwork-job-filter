@@ -16,8 +16,8 @@
     {
       "matches": ["https://www.upwork.com/nx/find-work/"],
       "run_at": "document_start",
-      "js": ["dom-filter.js"],
-      "css": ["dom-styles.css"]
+      "js": ["dom.js"],
+      "css": ["dom.css"]
     }
   ]
 }
