@@ -29,3 +29,9 @@ So far while I have done work for 3 different people I have not gotten paid ha
 It's funny I have this urge to draw a UI can't just write it with code
 
 Maybe if I had the figma skills would use that
+
+3:19 PM
+
+Ugh... can't help but feel this project is a waste of time
+
+Struggling with the layers of messaging, I've left myself notes in the past too

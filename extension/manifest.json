@@ -4,16 +4,24 @@
   "description": "Filter jobs by matched words",
   "manifest_version": 2,
   "icons": {
-      "16": "icon16.png",
-      "48": "icon48.png",
-      "128": "icon128.png"
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
   },
   "browser_action": {
-      "default_icon": "icon16.png",
-      "default_popup": "./popup-ui/index.html"
-  },
+    "default_icon": "icon16.png",
+    "default_popup": "./popup-ui/index.html"
+},
   "background": {
-      "scripts": ["background.js"],
-      "persistent": false
-  }
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.upwork.com/nx/find-work/"],
+      "run_at": "document_start",
+      "js": ["dom-filter.js"],
+      "css": ["styles.css"]
+    }
+  ]
 }

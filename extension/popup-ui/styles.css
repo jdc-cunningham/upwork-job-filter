@@ -44,7 +44,7 @@ body * {
 }
 
 .container__body-row-item h3 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   flex: 1;
 }
 
@@ -73,6 +73,6 @@ body * {
 .container__footer button {
   flex: 0;
   font-size: 1rem;
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem 1rem;
   margin-left: 0.5rem;
 }
