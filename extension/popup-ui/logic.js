@@ -21,12 +21,6 @@ const sendMessageToDomFilter = (msg) => {
   });
 }
 
-const sendMessageToBg = (msg) => {
-  chrome.runtime.sendMessage({
-    message: msg
-  });
-}
-
 const removeFilter = (filter) => {
   sendMessageToBg({
     type: 'update-filter',

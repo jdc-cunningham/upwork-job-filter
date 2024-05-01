@@ -35,3 +35,15 @@ Maybe if I had the figma skills would use that
 Ugh... can't help but feel this project is a waste of time
 
 Struggling with the layers of messaging, I've left myself notes in the past too
+
+4:05 PM
+
+Back on, I am making this harder than it needs to be
+
+The filters should be kept on the DOM level via localStorage not in background.js
+
+This info is not private or secret
+
+The popup-ui is just an interface to see/modify the filter
+
+
