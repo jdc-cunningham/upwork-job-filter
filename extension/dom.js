@@ -105,6 +105,8 @@ const applyFilters = () => {
 
     if ([jobTitle, jobDescription, jobTags].some(jobText => filterMatched(jobText))) {
       job.style.opacity = 0.15;
+      job.style.maxHeight = '150px';
+      job.style.overflow = 'auto';
     }
   });
 }
