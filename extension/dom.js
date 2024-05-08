@@ -104,7 +104,7 @@ const applyFilters = () => {
     const jobTags = Array.from(job.querySelectorAll('a.air3-token')).map(jobTag => jobTag.innerText).join(',');
 
     if ([jobTitle, jobDescription, jobTags].some(jobText => filterMatched(jobText))) {
-      job.remove();
+      job.style.opacity = 0.15;
     }
   });
 }
