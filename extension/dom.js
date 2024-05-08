@@ -98,14 +98,16 @@ const filterMatched = (text) => domFilters.some(domFilter => text.toLowerCase().
 const applyFilters = () => {
   // stuff to look at: job title, description, tags
   const myRate = 40; // hourly
+  const minFixedPriceRate = 100;
 
   Array.from(document.querySelectorAll('div[data-test="job-tile-list"] section')).forEach(job => {
     const jobTitle = job.querySelector('h3.job-tile-title').innerText;
     const jobDescription = job.querySelector('div.text-body').innerText;
     const jobTags = Array.from(job.querySelectorAll('a.air3-token')).map(jobTag => jobTag.innerText).join(',');
-    const fixedPayType = job.querySelector('span[data-test="job-type"]')?.includes('fixed');
-    const hourlyRate = !fixedPayType ? job.querySelector('span[data-test="job-type"]') : 0;
-    const rateMet = hourlyRate && parseInt(hourlyRate.split('Hourly: ')[1].split('-')[1].split('$')[1]) >= myRate;
+    const fixedPayType = job.querySelector('strong[data-test="job-type"]')?.innerText.includes('fixed');
+    const fixedPayRate = fixedPayType ? parseInt(job.querySelector('strong[data-test="budget"')?.innerText.split('$')[1]) : 0;
+    const hourlyRate = !fixedPayType ? job.querySelector('strong[data-test="job-type"]').innerText : 0;
+    const rateMet = (fixedPayType && fixedPayRate >= minFixedPriceRate) || (hourlyRate && hourlyRate.includes('$') && parseInt(hourlyRate.split('Hourly: ')[1].split('-')[1].split('$')[1]) >= myRate);
 
     if ([jobTitle, jobDescription, jobTags].some(jobText => (filterMatched(jobText) || (fixedPayType || rateMet)))) {
       job.style.opacity = 0.15;
