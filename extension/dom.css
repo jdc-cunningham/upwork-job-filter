@@ -1,3 +1,14 @@
 .ce-hidden {
   opacity: 0;
 }
+
+.elapsed-time {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  font-size: 1.25rem;
+  padding: 0.25rem;
+  background-color: chocolate;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}

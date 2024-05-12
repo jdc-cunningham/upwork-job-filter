@@ -117,6 +117,54 @@ const applyFilters = () => {
   });
 }
 
+// this is an injected clock that starts counting upwards
+// after the page loads it's for the most recent feed
+const injectTimeDisplay = () => {
+  const newDiv = document.createElement("div");
+  newDiv.setAttribute('id', 'elapsed-time');
+  newDiv.setAttribute('class', 'elapsed-time');
+  newDiv.setAttribute('title', 'since last refresh');
+
+  document.body.appendChild(newDiv);
+}
+
+let timeDisp;
+const startTime = Date.now();
+
+const updateTime = (formattedTime) => timeDisp.innerText = formattedTime;
+
+const leadingZeroCheck = (seconds) => {
+	if (seconds < 10) {
+    return `0${seconds}`;
+  } else {
+    return seconds;
+  }
+}
+
+const formatTime = (elapsedSeconds) => {
+	if (elapsedSeconds >= 60) {
+    const mins = Math.floor(elapsedSeconds / 60);
+    const secs = elapsedSeconds % 60;
+
+    return `${leadingZeroCheck(mins)}:${leadingZeroCheck(secs)}`;
+  } else {
+  	return `0:${leadingZeroCheck(elapsedSeconds)}`;
+  }
+}
+
+const startElapsedTimer = () => {
+  injectTimeDisplay();
+  timeDisp = document.getElementById('elapsed-time'); 
+
+  setInterval(() => {
+    const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+    updateTime(formatTime(elapsedTime));
+  }, 1000);
+}
+
+
+window.onload = () => startElapsedTimer();
+
 document.addEventListener('scrollend', () => {
   applyFilters();
 });
