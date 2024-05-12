@@ -107,7 +107,7 @@ const applyFilters = () => {
     const fixedPayType = job.querySelector('strong[data-test="job-type"]')?.innerText.includes('fixed');
     const fixedPayRate = fixedPayType ? parseInt(job.querySelector('strong[data-test="budget"')?.innerText.split('$')[1]) : 0;
     const hourlyRate = !fixedPayType ? job.querySelector('strong[data-test="job-type"]').innerText : 0;
-    const rateMet = (fixedPayType && fixedPayRate >= minFixedPriceRate) || (hourlyRate && hourlyRate.includes('$') && parseInt(hourlyRate.split('Hourly: ')[1].split('-')[1].split('$')[1]) >= myRate);
+    // const rateMet = (fixedPayType && fixedPayRate >= minFixedPriceRate) || (hourlyRate && hourlyRate.includes('$') && parseInt(hourlyRate.split('Hourly: ')[1].split('-')[1].split('$')[1]) >= myRate);
 
     if ([jobTitle, jobDescription, jobTags].some(jobText => (filterMatched(jobText)))) {
       job.style.opacity = 0.15;
