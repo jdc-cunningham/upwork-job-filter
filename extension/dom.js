@@ -163,7 +163,10 @@ const startElapsedTimer = () => {
 }
 
 
-window.onload = () => startElapsedTimer();
+window.onload = () => {
+  applyFilters();
+  startElapsedTimer();
+}
 
 document.addEventListener('scrollend', () => {
   applyFilters();
