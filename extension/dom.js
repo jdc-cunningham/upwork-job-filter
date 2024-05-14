@@ -102,8 +102,6 @@ const checkPay = (jobTitle, jobPayText) => {
   const minHourlyRate = 50;
   const minFixedPriceRate = 100;
 
-  console.log(jobTitle, jobPayText);
-
   try {
     const hourlyJob = jobPayText.includes('hourly');
 
