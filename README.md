@@ -10,6 +10,10 @@ Effects:
 - block jobs by text matching
 - ~~auto-load more jobs and block to max count with delay~~
 
+### How to use
+
+The extension folder has to be loaded as an unpacked extension (dev mode)
+
 ### Disclaimer
 
 Not affiliated with UpWork
