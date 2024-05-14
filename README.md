@@ -4,11 +4,12 @@
 
 This is a chrome extension
 
-Effects:
+### Effects:
 
 - hides announcements banner
 - block jobs by text matching
-- ~~auto-load more jobs and block to max count with delay~~
+- block jobs by min hourly rate (hardcoded to min $50) and fixed budget (hardcoded to min $100)
+  - to change, see `dom.js`
 
 ### How to use
 
