@@ -93,12 +93,25 @@ const sendMessageToLogic = (msg) => {
   chrome.runtime.sendMessage(msg);
 }
 
-const filterMatched = (text) => domFilters.some(domFilter => {
+const filterMatched = (job, text) => domFilters.some(domFilter => {
+  if (text.toLowerCase().includes(domFilter.toLowerCase())) {
+    addFailStamp(job, domFilter);
+  }
+
   // can check things here
-  return text.toLowerCase().includes(domFilter.toLowerCase())
+  return text.toLowerCase().includes(domFilter.toLowerCase());
 });
 
-const checkPay = (jobTitle, jobPayText) => {
+// why the job was ignored
+const addFailStamp = (jobEl, reason) => {
+  const curText = jobEl.querySelector('.fail-reason').innerText;
+
+  if (!curText.includes(reason)) {
+    jobEl.querySelector('.fail-reason').innerText += curText.length ? ' ' + reason : reason;
+  }
+}
+
+const checkPay = (job, jobTitle, jobPayText) => {
   const minHourlyRate = 50;
   const minFixedPriceRate = 100;
 
@@ -123,6 +136,8 @@ const checkPay = (jobTitle, jobPayText) => {
         }
       }
     }
+
+    addFailStamp(job, 'budget');
     
     return false;
   } catch (e) {
@@ -132,9 +147,18 @@ const checkPay = (jobTitle, jobPayText) => {
   }
 }
 
+const addFailContainer = (job) => {
+  if (!job.querySelector('.fail-reason')) {
+    job.style.position = 'relative'; // for added elements with absolute positioning
+    job.innerHTML += '<div class="fail-reason"></div>';
+  }
+}
+
 const applyFilters = () => {
   // stuff to look at: job title, description, tags
   Array.from(document.querySelectorAll('div[data-test="job-tile-list"] section')).forEach(job => {
+    addFailContainer(job);
+
     // check job context
     const jobTitle = job.querySelector('h3.job-tile-title').innerText;
     const jobDescription = job.querySelector('div.text-body').innerText;
@@ -142,9 +166,9 @@ const applyFilters = () => {
 
     // check pay info
     const budgetText = job.querySelector('.text-light.display-inline-block.text-caption').innerText.toLowerCase();
-    const payRateMet = checkPay(jobTitle, budgetText);
+    const payRateMet = checkPay(job, jobTitle, budgetText);
 
-    if ([jobTitle, jobDescription, jobTags].some(jobText => (filterMatched(jobText) || !payRateMet))) {
+    if ([jobTitle, jobDescription, jobTags].some(jobText => (filterMatched(job, jobText) || !payRateMet))) {
       job.style.opacity = 0.15;
       job.style.maxHeight = '150px';
       job.style.overflow = 'auto';

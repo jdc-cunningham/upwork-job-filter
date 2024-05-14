@@ -12,3 +12,10 @@
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
+
+.fail-reason {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: red;
+}
