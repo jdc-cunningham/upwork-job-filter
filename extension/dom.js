@@ -1,3 +1,5 @@
+// this file runs in the same context as upwork's front end eg. devtools
+
 let domFilters = [];
 
 const getBanner = () => document.querySelector('.announcements');
