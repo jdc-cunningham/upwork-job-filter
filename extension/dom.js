@@ -102,6 +102,8 @@ const checkPay = (jobTitle, jobPayText) => {
   const minHourlyRate = 50;
   const minFixedPriceRate = 100;
 
+  console.log(jobTitle, jobPayText);
+
   try {
     const hourlyJob = jobPayText.includes('hourly');
 
@@ -116,7 +118,7 @@ const checkPay = (jobTitle, jobPayText) => {
       }
     } else {
       if (jobPayText.includes('budget: $')) {
-        const budget = jobPayText.split('budget: $')[0];
+        const budget = jobPayText.split('budget: $')[1];
 
         if (parseInt(budget) >= minFixedPriceRate) {
           return true;
