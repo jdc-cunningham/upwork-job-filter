@@ -93,23 +93,58 @@ const sendMessageToLogic = (msg) => {
   chrome.runtime.sendMessage(msg);
 }
 
-const filterMatched = (text) => domFilters.some(domFilter => text.toLowerCase().includes(domFilter.toLowerCase()));
+const filterMatched = (text) => domFilters.some(domFilter => {
+  // can check things here
+  return text.toLowerCase().includes(domFilter.toLowerCase())
+});
+
+const checkPay = (jobTitle, jobPayText) => {
+  const minHourlyRate = 50;
+  const minFixedPriceRate = 100;
+
+  try {
+    const hourlyJob = jobPayText.includes('hourly');
+
+    if (hourlyJob) {
+      if (jobPayText.includes('hourly:')) {
+        const budget = jobPayText.split('hourly: ')[1].split(' - ')[0];
+        const budgetRange = budget.replaceAll('$', '').split('-');
+        
+        if (parseInt(budgetRange[1]) >= minHourlyRate) {
+          return true;
+        }
+      }
+    } else {
+      if (jobPayText.includes('budget: $')) {
+        const budget = jobPayText.split('budget: $')[0];
+
+        if (parseInt(budget) >= minFixedPriceRate) {
+          return true;
+        }
+      }
+    }
+    
+    return false;
+  } catch (e) {
+    alert('Failed to check job budget' + '\n' + jobTitle + '\n' + jobPayText);
+    console.log(jobTitle, jobPayText);
+    console.error(e);
+  }
+}
 
 const applyFilters = () => {
   // stuff to look at: job title, description, tags
-  const myRate = 40; // hourly
-  const minFixedPriceRate = 100;
-
   Array.from(document.querySelectorAll('div[data-test="job-tile-list"] section')).forEach(job => {
+    // check job context
     const jobTitle = job.querySelector('h3.job-tile-title').innerText;
     const jobDescription = job.querySelector('div.text-body').innerText;
     const jobTags = Array.from(job.querySelectorAll('a.air3-token')).map(jobTag => jobTag.innerText).join(',');
-    const fixedPayType = job.querySelector('strong[data-test="job-type"]')?.innerText.includes('fixed');
-    const fixedPayRate = fixedPayType ? parseInt(job.querySelector('strong[data-test="budget"')?.innerText.split('$')[1]) : 0;
-    const hourlyRate = !fixedPayType ? job.querySelector('strong[data-test="job-type"]').innerText : 0;
-    // const rateMet = (fixedPayType && fixedPayRate >= minFixedPriceRate) || (hourlyRate && hourlyRate.includes('$') && parseInt(hourlyRate.split('Hourly: ')[1].split('-')[1].split('$')[1]) >= myRate);
 
-    if ([jobTitle, jobDescription, jobTags].some(jobText => (filterMatched(jobText)))) {
+    // check pay info
+    const budgetText = job.querySelector('.text-light.display-inline-block.text-caption').innerText.toLowerCase();
+    const payRateMet = checkPay(jobTitle, budgetText);
+
+    if ([jobTitle, jobDescription, jobTags].some(jobText => (filterMatched(jobText) || !payRateMet))) {
       job.style.opacity = 0.15;
       job.style.maxHeight = '150px';
       job.style.overflow = 'auto';
