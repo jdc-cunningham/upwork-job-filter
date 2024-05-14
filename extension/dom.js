@@ -134,9 +134,9 @@ const checkPay = (job, jobTitle, jobPayText) => {
       }
     } else {
       if (jobPayText.includes('budget: $')) {
-        const budget = jobPayText.split('budget: $')[1];
+        const budget = jobPayText.split('budget: $')[1].replace(',', '');
 
-        if (parseInt(budget) >= minFixedPriceRate) {
+        if (parseFloat(budget) >= minFixedPriceRate) {
           return true;
         } else {
           addFailStamp(job, 'low fixed price');
