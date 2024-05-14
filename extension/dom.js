@@ -125,6 +125,9 @@ const checkPay = (job, jobTitle, jobPayText) => {
         
         if (parseInt(budgetRange[1]) >= minHourlyRate) {
           return true;
+        } else {
+          addFailStamp(job, 'low hourly pay');
+          return false;
         }
       }
     } else {
@@ -133,12 +136,14 @@ const checkPay = (job, jobTitle, jobPayText) => {
 
         if (parseInt(budget) >= minFixedPriceRate) {
           return true;
+        } else {
+          addFailStamp(job, 'low fixed price');
+          return false;
         }
       }
     }
 
-    addFailStamp(job, 'budget');
-    
+    addFailStamp(job, 'unknown budget');
     return false;
   } catch (e) {
     alert('Failed to check job budget' + '\n' + jobTitle + '\n' + jobPayText);
