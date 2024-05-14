@@ -109,7 +109,7 @@ const addFailStamp = (jobEl, reason) => {
   const curText = jobEl.querySelector('.fail-reason').innerText;
 
   if (!curText.includes(reason)) {
-    jobEl.querySelector('.fail-reason').innerText += curText.length ? ' ' + reason : reason;
+    jobEl.querySelector('.fail-reason').innerText += curText.length ? ' | ' + reason : reason;
   }
 }
 
