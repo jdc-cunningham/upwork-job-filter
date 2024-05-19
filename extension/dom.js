@@ -230,6 +230,7 @@ const startElapsedTimer = () => {
 
 
 window.onload = () => {
+  getFilters();
   applyFilters();
   startElapsedTimer();
 }
@@ -237,6 +238,3 @@ window.onload = () => {
 document.addEventListener('scrollend', () => {
   applyFilters();
 });
-
-getFilters();
-applyFilters();
